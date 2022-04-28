@@ -1,0 +1,28 @@
+<section class="todos-app">
+    <h1 class="todos-app__title">My Todo's</h1>
+
+    <div class="todo">
+        <form action="#" (submit)="newTodo(todo)">
+            <div class="todo__compose">
+                <input
+                    type="text"
+                    name="todo-text"
+                    class="todo-compose__input"
+                    placeholder="What needs to be done?"
+                    [(ngModel)]="todo"
+                />
+            </div>
+        </form>
+
+        <div class="todo__items">
+            <todo-item
+                *ngFor="let todo of todos; index as i"
+                [completed]="todo.completed"
+                [text]="todo.text"
+                (deleted)="deleteTodo(i)"
+            >
+            </todo-item>
+        </div>
+    </div>
+
+</section>

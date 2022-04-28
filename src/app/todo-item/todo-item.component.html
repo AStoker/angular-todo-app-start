@@ -1,0 +1,13 @@
+<div
+    class="todo-item"
+    [class.completed]="completed"
+>
+    <input type="checkbox" [(ngModel)]="completed" />
+    <p
+        contenteditable="true"
+        spellcheck="false"
+    >
+        {{ text }}
+    </p>
+    <button (click)="delete()">X</button>
+</div>
