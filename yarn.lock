@@ -34,6 +34,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@angular-devkit/architect@npm:0.1303.4":
+  version: 0.1303.4
+  resolution: "@angular-devkit/architect@npm:0.1303.4"
+  dependencies:
+    "@angular-devkit/core": 13.3.4
+    rxjs: 6.6.7
+  checksum: 955f28057639f47554f77ca3c7177e1232bc3d5fa371fbb5c35afafa460ef3fba2ceb4b6b30bf3c71cc5329b9f8bbef14f016adaf5e3315f111e3333bbd7e4a8
+  languageName: node
+  linkType: hard
+
 "@angular-devkit/build-angular@npm:~13.3.1":
   version: 13.3.2
   resolution: "@angular-devkit/build-angular@npm:13.3.2"
@@ -164,16 +174,35 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular-devkit/schematics@npm:13.3.2":
-  version: 13.3.2
-  resolution: "@angular-devkit/schematics@npm:13.3.2"
+"@angular-devkit/core@npm:13.3.4":
+  version: 13.3.4
+  resolution: "@angular-devkit/core@npm:13.3.4"
   dependencies:
-    "@angular-devkit/core": 13.3.2
+    ajv: 8.9.0
+    ajv-formats: 2.1.1
+    fast-json-stable-stringify: 2.1.0
+    magic-string: 0.25.7
+    rxjs: 6.6.7
+    source-map: 0.7.3
+  peerDependencies:
+    chokidar: ^3.5.2
+  peerDependenciesMeta:
+    chokidar:
+      optional: true
+  checksum: 5144f5759b8dc147d9cd61cabe74181add1c1cabf0f245068d73ee065041953215b2a5e780e2fc745f521b0b535770a92724e06a0093c6a20d2ee9448debd377
+  languageName: node
+  linkType: hard
+
+"@angular-devkit/schematics@npm:13.3.4":
+  version: 13.3.4
+  resolution: "@angular-devkit/schematics@npm:13.3.4"
+  dependencies:
+    "@angular-devkit/core": 13.3.4
     jsonc-parser: 3.0.0
     magic-string: 0.25.7
     ora: 5.4.1
     rxjs: 6.6.7
-  checksum: 796a2f613a39e30fea1c83a8c2eb422064702d795fdd7749d57d7a72a5c40c9d569209c4cf7ad199ef61ccbb2df8f082d352b931104886a883d85071b553c448
+  checksum: 5ba086bb3fff18ac5199149dc8a29db5a26995e5413845827fda1a2bf5bff683891ea9cf11fbc8e4e7fe3504078f0f14ca272cfa3cc28eb08cfd13f7522bffbc
   languageName: node
   linkType: hard
 
@@ -276,14 +305,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@angular/cli@npm:~13.3.1":
-  version: 13.3.2
-  resolution: "@angular/cli@npm:13.3.2"
+"@angular/cli@npm:~13.3.3":
+  version: 13.3.4
+  resolution: "@angular/cli@npm:13.3.4"
   dependencies:
-    "@angular-devkit/architect": 0.1303.2
-    "@angular-devkit/core": 13.3.2
-    "@angular-devkit/schematics": 13.3.2
-    "@schematics/angular": 13.3.2
+    "@angular-devkit/architect": 0.1303.4
+    "@angular-devkit/core": 13.3.4
+    "@angular-devkit/schematics": 13.3.4
+    "@schematics/angular": 13.3.4
     "@yarnpkg/lockfile": 1.1.0
     ansi-colors: 4.1.1
     debug: 4.3.3
@@ -301,7 +330,7 @@ __metadata:
     uuid: 8.3.2
   bin:
     ng: bin/ng.js
-  checksum: d34f84033de9dfb3aac106096b4dd57b9eac79bb54dcf9cac957def4dc41e51a268b98c016bcd62db1f0111106afd018a21729eb891cdf25e01558b22cecf129
+  checksum: c80ac5988bf0a0f58e910c67069ea543f4835401ffb65e8a9441d17bb523e4437ea76866da0ff95f6b883ae880189e9a41c1d6d36c62bf8fb577065e445161fa
   languageName: node
   linkType: hard
 
@@ -2274,14 +2303,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@schematics/angular@npm:13.3.2":
-  version: 13.3.2
-  resolution: "@schematics/angular@npm:13.3.2"
+"@schematics/angular@npm:13.3.4":
+  version: 13.3.4
+  resolution: "@schematics/angular@npm:13.3.4"
   dependencies:
-    "@angular-devkit/core": 13.3.2
-    "@angular-devkit/schematics": 13.3.2
+    "@angular-devkit/core": 13.3.4
+    "@angular-devkit/schematics": 13.3.4
     jsonc-parser: 3.0.0
-  checksum: 859b116dee0969df192d688ede822491e6210dd6145535b4b8372321a6e4d687320d55d8fcd0dcc94c55ed0e740d8c809119faafb70d1652306fb167cc7b762d
+  checksum: 6f56d20484302a6dd4bf1819b509b918d804b2a29da452f3921de7e1be1eda4d15acbfd029216b25cc7069d93fb83ec3a7042ef56ae3b44fa9116b49a170172d
   languageName: node
   linkType: hard
 
@@ -10611,7 +10640,7 @@ __metadata:
     "@angular-eslint/schematics": 13.2.0
     "@angular-eslint/template-parser": 13.2.0
     "@angular/animations": ~13.3.0
-    "@angular/cli": ~13.3.1
+    "@angular/cli": ~13.3.3
     "@angular/common": ~13.3.0
     "@angular/compiler": ~13.3.0
     "@angular/compiler-cli": ~13.3.0
