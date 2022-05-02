@@ -99,7 +99,7 @@ Our first task will be to evaluate the application's title and ensure that it ma
 Our Todo app obviously needs to be able to create and maintain a list of Todos, and your first instinct will likely to be to dive into the code start creating the required structure. But this is not the right approach.  
 The first step in Test Driven Development is to create a test that will assert what we want.
 
-### Writing the Test
+### Writing Tests To Add Todos
 
 1. We'll start by creating a new test suite to describe everyting around creating and adding todos.
 
@@ -130,7 +130,7 @@ The first step in Test Driven Development is to create a test that will assert w
 You'll see after we save the file that we have a failing test. That's to be expected! We've created a specification on how to create a new todo, but we haven't actually implemented the code to create the todo.  
 Let's fix that now.
 
-### Implementing the Code
+### Implementing the Code To Add Todos
 
 1. The first thing we need to do is ensure we have an array that contains our todos. We'll create a new property on our application called `todos` and assign it an empty array.
 
@@ -165,7 +165,7 @@ Let's fix that now.
 
 You'll notice now that our tests are all passing. Great work!
 
-### Writing The Rest Of The Tests
+### Writing The Rest Of The "Add" Tests
 
 Obviously we need to add more tests to define the rest of the expected behavior of our Todo app.
 
@@ -220,7 +220,7 @@ Obviously we need to add more tests to define the rest of the expected behavior 
 
 That's a handful of tests that are all failing right now. Let's fix that.
 
-### Implementing the rest of the Code
+### Implementing the rest of the "Add" Code
 
 1. Before we go farther, if you look at the failing tests, you'll notice they're specifically failing because of missing property called `todo`. This is the string that we'll be using to add a new todo. However, because we're using Typescript, we're getting this error a bit early. Let's resolve it for now and come back to implementing the feature in a couple steps.
 
@@ -288,3 +288,346 @@ That's a handful of tests that are all failing right now. Let's fix that.
         ```
 
 That should be all the tests that handle creating Todos. Go ahead and give the app a try! If you left the `ng serve --open` task running, then you should still see the app running in your browser. Type in a value in the input and then hit enter. You'll see that the entry is cleared out, just like we asserted. You'll also see a pretty little unstyled Todo item.
+
+## Deleting TODO's
+
+Being able to add Todos don't do us any good if we can't remove them too. Accidents happen, and sometimes the cat jumps on the keyboard just at the right moment. Let's follow our TDD practice and start by writing tests for deleting Todos.
+
+### Writing Tests To Delete Todos
+
+Since we're testing different functionality than our last test suite (which focused on adding todos), let's create a new test suite that describes deleting todos.
+
+1. Open the `src/app/app.component.spec.ts` file, add a new test suite called `deleting todos`.
+2. Inside the test suite create a test that adds two todos.
+3. After you've added two todos, make an assertion that the todos array lenght is 2. Doing this provides us with a test that asserts our initial state is correct. This provides us with a more robust test that checks both the initial state and final state. If something were to go wrong, we'd have a better clue as to where the problem is.
+4. Call the function `deleteTodo` and pass in an index of 0 (we're going to test deleting the first item).
+5. Make an assertion that the todos array length is 1.
+6. Make an assertion that the todo at index 0 has the text we initially added for the second todo.
+
+You should have a test suite that looks something like this
+
+```typescript
+describe("deleting todos", () => {
+    it("should delete a todo", () => {
+        app.newTodo("Buy milk");
+        app.newTodo("Buy bread");
+
+        expect(app.todos.length).toBe(2);
+
+        app.deleteTodo(0);
+
+        expect(app.todos.length).toBe(1);
+        expect(app.todos[0].text).toBe("Buy milk");
+    });
+});
+```
+
+Right now, we can see the test is failing because we don't have a function called `deleteTodo`. Let's go ahead and add that next.
+
+### Writing The Code To Delete Todos
+
+Since our todos are stored in an array, we can use the `splice` method to remove items from the array. Go ahead and create a function called `deleteTodo` that takes in an index and removes the item at that index. It should look something like this:
+
+```typescript
+deleteTodo(index: number): void {
+    this.todos.splice(index, 1);
+}
+```
+
+Bada-bing, we're done with deleting todos! All this works great in the code, but we're still missing some core Todo functionality, namely, being able to mark todos as complete. To do (see what I did there) that, we are going to create a new component called `todo-item`. Let's do that now.
+
+## Creating A Todo Item Component
+
+We're going to use Angular's CLI to generate a new component called `todo-item`. We'll use the `ng generate component` command.
+
+1. Run the following command in your terminal:
+
+    ```bash
+    ng generate component todo-item
+    ```
+
+    This will generate a new component called `todo-item` in the `src/app/todo-item/todo-item.component.ts` file. Let's go ahead and hook this component up to our app, even though we haven't added any functionality yet.
+
+2. In the `src/app/app.component.html` file, modify the `<div>` that is used for each todo item and replace it with the `<todo-item>` component. You should have something that looks like this:
+
+    ```html
+    <div class="todo__items">
+        <todo-item *ngFor="let todo of todos; index as i"> </todo-item>
+    </div>
+    ```
+
+    If you try to add new todos, you'll see that the new `<todo-item>` component is now being used, and with it the default text of "todo-item works!" is shown for each todo.
+
+3. Replace the contents of the `src/app/todo-item.component.scss` file with the following:
+
+    ```scss
+    .todo-item {
+        align-items: center;
+        border-bottom: 1px solid #ededed;
+        display: grid;
+        grid-template-columns: 50px 450px 50px;
+        word-wrap: break-word;
+
+        &.completed {
+            color: #d9d9dd;
+            text-decoration: line-through;
+        }
+
+        input[type="checkbox"] {
+            height: 25px;
+            margin-left: 15px;
+            width: 25px;
+        }
+
+        p {
+            box-shadow: none;
+            font-size: 18px;
+            outline: none;
+            padding: 18px 0;
+
+            &:focus {
+                font-weight: bold;
+            }
+        }
+
+        &:hover {
+            button {
+                visibility: visible;
+            }
+        }
+        button {
+            color: red;
+            cursor: pointer;
+            font-size: 24px;
+            justify-self: end;
+            visibility: hidden;
+            border: none;
+            background-color: inherit;
+        }
+    }
+    ```
+
+Now that we have a `todo-item` component, we can start our TDD process again.
+
+### Creating Tests For The Todo-Item Component
+
+If you open the `src/app/todo-item/todo-item.component.spec.ts` file, you'll see that Angular's generate command has created a basic test suite for us. There's one thing missing in this test suite (besides tests) that Angular doesn't put in automatically. Because we're using inputs and binding values, we need to use the FormsModule to tell Angular how to correctly communicate between the component and the input. That's already taken care of in our `src/app.module.ts` file, but we need to use it in this test file as well when we're configuring the `TestBed`.
+
+> Note: The `beforeEach` callback in tests provides us with an opportunity to configure our environment before each test, and ultimately allow us to have a clean slate for each test, limiting testing pollution.
+
+1. Open the `src/app/todo-item/todo-item.component.spec.ts` file and add the following code to the top of the file:
+
+    ```typescript
+    import { FormsModule } from "@angular/forms";
+    ```
+
+2. Now, in the `beforeEach` callback, modify the the test bed configuration by adding an `imports` property that is an array containing the `FormsModule`. Your `beforeEach` should look something like this:
+
+    ```typescript
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [FormsModule],
+            declarations: [TodoItemComponent],
+        }).compileComponents();
+    });
+    ```
+
+    This will save us some madness later on when we we're testing the inputs.
+
+3. One more thing to modify. This is optional, but to save us a little work later on, we're going to tell Angular to auto-detect changes to the DOM. This is a feature that Angular provides to help us test our components. If we don't tell Angular to detect changes, we'd have to do it manually, or it won't be able to update the DOM and we'll get an error. Modify the `import` of `@angular/core/testing` to also import `ComponentFixtureAutoDetect`. Then register a provider for `ComponentFixtureAutoDetect` in the `beforeEach` callback. Your `beforeEach` should now look something like this:
+
+    ```typescript
+    beforeEach(async () => {
+        await TestBed.configureTestingModule({
+            imports: [FormsModule],
+            declarations: [TodoItemComponent],
+            providers: [
+                {
+                    provide: ComponentFixtureAutoDetect,
+                    useValue: true,
+                },
+            ],
+        }).compileComponents();
+    });
+    ```
+
+**Now we're ready to start writing tests!**
+
+We're going to start with a test that checks the default states of our component. Remember, we created two properties for our Todo interface, `text` and `completed`. Let's start by making sure that new components have the correct default values.
+
+1. Create a new test called 'should set default states'.
+2. Expect our component's `text` property to be an empty string.
+3. Expect our component's `completed` property to be `false`.
+
+    You should have a test that looks like this:
+
+    ```typescript
+    it("should set default states", () => {
+        expect(component.completed).toBe(false);
+        expect(component.text).toBe("");
+    });
+    ```
+
+As expected, we have failing tests (we don't get things for free afterall). There are a few things we'll have to do to make this test pass.
+
+### Defining The Todo-Item Component
+
+1. Open the `src/app/todo-item/todo-item.component.ts` file.
+2. You'll notice that our component is implementing `OnInit`. For our purposes, we don't need this, so let's remove a few things.
+
+    1. Remove the `OnInit` import.
+    2. Remove the `implements OnInit` from the class.
+    3. Remove the `ngOnInit` method.
+
+    Now we have a clean component for us to work with.
+
+3. We need to add our properties, `completed` and `text`. However, we don't need just any kind of property, we specifically need to tell our component that these properties are "inputs". This allows Angular to bind values from the app to our components (you'll see it in action shortly).
+
+    1. Import the module `Input` from the `@angular/core` module.
+    2. Use the `@Input()` decorator to define the `completed` and `text` properties at the top of the class.
+
+    You should have properties that look like this:
+
+    ```typescript
+    @Input() completed: boolean = false;
+    @Input() text: string = '';
+    ```
+
+Checking our tests once again, we see that everything is passing.
+
+[Insert mini-celebration here]
+
+While we're here, let's go ahead and add some HTMl elements to our component so we can see what's going on.
+
+1. Open up the `src/app/todo-item/todo-item.component.html` and erase it's contents.
+2. Add the following HTML to the file:
+
+    ```html
+    <div class="todo-item" [class.completed]="completed">
+        <input type="checkbox" [(ngModel)]="completed" />
+        <p contenteditable="true" spellcheck="false">{{ text }}</p>
+    </div>
+    ```
+
+    Let's evaluate what we did here.
+
+    1. We told Angular to bind the class `completed` to the `completed` property.
+    2. We added an input that has a type of `checkbox` and a `(ngModel)` binding to the `completed` property.
+    3. We added a `<p>` element that has a `contenteditable` and `spellcheck` attribute, and also uses Angular's interpolation (double squigly brackets) to bind the `text` value to the `<p>` element. This will allow us to both see the text of the todo, and change it's value if we need to.
+
+Now that our Todo Item component is ready, let's hook it up in our App Component.
+
+1. Open up the `src/app/app.component.html` file and modify the `<todo>` element. Bind the `completed` and `text` properties to the `completed` and `text` values of the repeated todo list. It should look something like this:
+
+    ```html
+    <todo-item
+        *ngFor="let todo of todos; index as i"
+        [completed]="todo.completed"
+        [text]="todo.text"
+    >
+    </todo-item>
+    ```
+
+2. Give it a whirl! Try adding a todo and see the magic happen. Test out modifying the todo and marking it as completed.
+
+### Deleting Todo Items
+
+Remember all that logic we created earlier to test deleting todos? Well, now it's time to make that magic happen!
+
+The logic to delete Todos exists in the app component where we've stored our array of todos. So we need to make each todo component able to tell the app component to delete itself. To do this we're going to use an event emitter. But we're also going to take this oppertunity to explore the concepts of Spys.
+
+> **Spys**: In short, a spy allows us to inspect how properties or functions are used and called. You can use a spy to test that a function is called, and that it is called with the correct arguments.
+
+Let's use a spy to make sure that our Todo component's `delete` method is called when we click the delete button.
+
+> Note: This test is for the purpose of showing how spy's work, we normally would NOT make this kind of test because what we're testing is the communication between the view and component, something that Angular handles and already has tests for. Rule of thumb, don't test what frameworks or libraries do and already have tested, focus on your own code.
+
+1. Open the file `src/app/todo-item/todo-item.component.spec.ts`.
+2. Add a new test at the bottom of the suite called `should trigger delete when clicked`.
+3. Use the syntax `jest.spyOn(<object>, <property>)` to create a spy on the `delete` method of the `TodoItemComponent`.
+4. Get the compiled DOM element of the component and find the delete button.
+5. Use the `click` method on the button to trigger the event.
+6. Use the `expect` method to make sure the `delete` method was called.
+
+Your test should now look like this:
+
+```typescript
+it("should trigger delete when clicked", () => {
+    jest.spyOn(component, "delete");
+    const compiled = fixture.nativeElement as HTMLElement;
+
+    const deleteButton = compiled.querySelector("button")!;
+
+    deleteButton.click();
+
+    expect(component.delete).toHaveBeenCalled();
+});
+```
+
+This should be second nature by now, let's go and make our code fulfill our tests!
+
+We're going to use the EventEmitter as previously mentioned. If you want to know more, check out Angular's documention on EventEmitter. For now, simply imagine it as a function that we can call to trigger an event which the parent component can listen for.
+
+1. Open the `src/app/todo-item/todo-item.component.ts` file.
+2. Import the `EventEmitter` and `Output` from the `@angular/core` module.
+3. Use the `@Output()` decorator to define a new EventEmitter called `deleted`.
+4. Add a new method called `delete` to the class.
+5. Use the `deleted` EventEmitter to emit an event of `true`.
+
+Your class should now look like this:
+
+```typescript
+export class TodoItemComponent {
+    @Input() completed: boolean = false;
+    @Input() text: string = "";
+    @Output() deleted: EventEmitter<any> = new EventEmitter();
+
+    public delete(): void {
+        this.deleted.emit(true);
+    }
+}
+```
+
+Now let's add the delete button to the view to call the `delete` function.
+
+1. Open the `src/app/todo-item/todo-item.component.html` file.
+2. Under the `<p>` tag add a new button that calls the `delete` method when clicked.
+
+Your view should now look like this:
+
+```html
+<div class="todo-item" [class.completed]="completed">
+    <input type="checkbox" [(ngModel)]="completed" />
+    <p contenteditable="true" spellcheck="false">{{ text }}</p>
+    <button (click)="delete()">X</button>
+</div>
+```
+
+And lastly, let's tell our app component to delete the todo item when the delete button is clicked.
+
+1. Open the `src/app/app.component.html` file.
+2. Modify the `<todo-item>` component to listen to the `deleted` event and call our `deleteTodo` function, passing in the index of our todo item.
+
+Your `<todo-item>` should now look like this:
+
+```html
+<todo-item
+    *ngFor="let todo of todos; index as i"
+    [completed]="todo.completed"
+    [text]="todo.text"
+    (deleted)="deleteTodo(i)"
+>
+</todo-item>
+```
+
+## Celebrate
+
+You have now used TDD to write a simple todo app. Congratulations! Take a moment to look back at the majesty of what you've just created.
+
+1. You used Test Driven Development to create an entire app!
+2. You used Jest to write tests for your components!
+3. You created components and ensured they were all tested!
+4. You have 100% test coverage for all the things you created!
+5. You didn't die a horrible death doing it all!
+
+Congratulations, you. Keep being awesome. :thumbsup:
