@@ -1,6 +1,32 @@
+-   [Create A Todo App With Test Driven Development](#create-a-todo-app-with-test-driven-development)
+    -   [Prerequisites](#prerequisites)
+        -   [Required Tools](#required-tools)
+        -   [Recommended Extensions](#recommended-extensions)
+        -   [Recommended Reading](#recommended-reading)
+    -   [Setup](#setup)
+    -   [Open the Project](#open-the-project)
+        -   [Starting the Application](#starting-the-application)
+    -   [Creating Our First Test](#creating-our-first-test)
+        -   [Test the Title](#test-the-title)
+    -   [Creating TODO's](#creating-todos)
+        -   [Writing Tests To Add Todos](#writing-tests-to-add-todos)
+        -   [Implementing the Code To Add Todos](#implementing-the-code-to-add-todos)
+        -   [Writing The Rest Of The "Add" Tests](#writing-the-rest-of-the-add-tests)
+        -   [Implementing the rest of the "Add" Code](#implementing-the-rest-of-the-add-code)
+    -   [Deleting TODO's](#deleting-todos)
+        -   [Writing Tests To Delete Todos](#writing-tests-to-delete-todos)
+        -   [Writing The Code To Delete Todos](#writing-the-code-to-delete-todos)
+    -   [Creating A Todo Item Component](#creating-a-todo-item-component)
+        -   [Creating Tests For The Todo-Item Component](#creating-tests-for-the-todo-item-component)
+        -   [Defining The Todo-Item Component](#defining-the-todo-item-component)
+        -   [Deleting Todo Items](#deleting-todo-items)
+    -   [Celebrate](#celebrate)
+
 # Create A Todo App With Test Driven Development
 
 In this tutorial we will be creating a Todo app with test driven development (also known as TDD).
+
+If you would like to see the finished project, check out the repo here: <https://github.com/AStoker/angular-todo-app-finished>.
 
 ## Prerequisites
 
@@ -8,7 +34,7 @@ You **need** to have a few things installed before you can start this tutorial.
 
 ### Required Tools
 
--   t [Node.js](https://nodejs.org/en/), version **16.14.2** or higher
+-   [Node.js](https://nodejs.org/en/), version **16.14.2** or higher
 -   [Yarn](https://yarnpkg.com/getting-started/install#nodejs-1610)
 -   [Angular CLI](https://angular.io/cli#installing-angular-cli)
 
