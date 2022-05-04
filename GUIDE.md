@@ -1,26 +1,26 @@
--   [Create A Todo App With Test Driven Development](#create-a-todo-app-with-test-driven-development)
-    -   [Prerequisites](#prerequisites)
-        -   [Required Tools](#required-tools)
-        -   [Recommended Extensions](#recommended-extensions)
-        -   [Recommended Reading](#recommended-reading)
-    -   [Setup](#setup)
-    -   [Open the Project](#open-the-project)
-        -   [Starting the Application](#starting-the-application)
-    -   [Creating Our First Test](#creating-our-first-test)
-        -   [Test the Title](#test-the-title)
-    -   [Creating TODO's](#creating-todos)
-        -   [Writing Tests To Add Todos](#writing-tests-to-add-todos)
-        -   [Implementing the Code To Add Todos](#implementing-the-code-to-add-todos)
-        -   [Writing The Rest Of The "Add" Tests](#writing-the-rest-of-the-add-tests)
-        -   [Implementing the rest of the "Add" Code](#implementing-the-rest-of-the-add-code)
-    -   [Deleting TODO's](#deleting-todos)
-        -   [Writing Tests To Delete Todos](#writing-tests-to-delete-todos)
-        -   [Writing The Code To Delete Todos](#writing-the-code-to-delete-todos)
-    -   [Creating A Todo Item Component](#creating-a-todo-item-component)
-        -   [Creating Tests For The Todo-Item Component](#creating-tests-for-the-todo-item-component)
-        -   [Defining The Todo-Item Component](#defining-the-todo-item-component)
-        -   [Deleting Todo Items](#deleting-todo-items)
-    -   [Celebrate](#celebrate)
+- [Create A Todo App With Test Driven Development](#create-a-todo-app-with-test-driven-development)
+  - [Prerequisites](#prerequisites)
+    - [Required Tools](#required-tools)
+    - [Recommended Extensions](#recommended-extensions)
+    - [Recommended Reading](#recommended-reading)
+  - [Setup](#setup)
+  - [Open the Project](#open-the-project)
+    - [Starting the Application](#starting-the-application)
+  - [Creating Our First Test](#creating-our-first-test)
+    - [Test the Title](#test-the-title)
+  - [Creating TODO's](#creating-todos)
+    - [Writing Tests To Add Todos](#writing-tests-to-add-todos)
+    - [Implementing the Code To Add Todos](#implementing-the-code-to-add-todos)
+    - [Writing The Rest Of The "Add" Tests](#writing-the-rest-of-the-add-tests)
+    - [Implementing the rest of the "Add" Code](#implementing-the-rest-of-the-add-code)
+  - [Deleting TODO's](#deleting-todos)
+    - [Writing Tests To Delete Todos](#writing-tests-to-delete-todos)
+    - [Writing The Code To Delete Todos](#writing-the-code-to-delete-todos)
+  - [Creating A Todo Item Component](#creating-a-todo-item-component)
+    - [Creating Tests For The Todo-Item Component](#creating-tests-for-the-todo-item-component)
+    - [Defining The Todo-Item Component](#defining-the-todo-item-component)
+    - [Deleting Todo Items](#deleting-todo-items)
+  - [Celebrate](#celebrate)
 
 # Create A Todo App With Test Driven Development
 
@@ -127,7 +127,7 @@ The first step in Test Driven Development is to create a test that will assert w
 
 ### Writing Tests To Add Todos
 
-1. We'll start by creating a new test suite to describe everyting around creating and adding todos.
+1. We'll start by creating a new test suite to describe everything around creating and adding todos.
 
     1. We'll use the `describe` function to describe our test suite.
 
@@ -179,7 +179,7 @@ Let's fix that now.
 2. We also need to add a function that allows us to add a new todo. Keeping in mind our test required us to pass a string as a parameter. Add this function to the `AppComponent` class.
 
     ```typescript
-    newTodo(text: string) {
+    newTodo(text: string): void {
         this.todos.push({
             text,
             completed: false,
@@ -313,7 +313,7 @@ That's a handful of tests that are all failing right now. Let's fix that.
         }
         ```
 
-That should be all the tests that handle creating Todos. Go ahead and give the app a try! If you left the `ng serve --open` task running, then you should still see the app running in your browser. Type in a value in the input and then hit enter. You'll see that the entry is cleared out, just like we asserted. You'll also see a pretty little unstyled Todo item.
+That should be all the tests that handle creating Todos. Go ahead and give the app a try! If you left the `ng serve --open` task running, then you should still see the app running in your browser. Type in a value in the input and then hit enter. You'll see that the entry is cleared out, just like we asserted. You'll also see a pretty little un-styled Todo item.
 
 ## Deleting TODO's
 
@@ -325,7 +325,7 @@ Since we're testing different functionality than our last test suite (which focu
 
 1. Open the `src/app/app.component.spec.ts` file, add a new test suite called `deleting todos`.
 2. Inside the test suite create a test that adds two todos.
-3. After you've added two todos, make an assertion that the todos array lenght is 2. Doing this provides us with a test that asserts our initial state is correct. This provides us with a more robust test that checks both the initial state and final state. If something were to go wrong, we'd have a better clue as to where the problem is.
+3. After you've added two todos, make an assertion that the todos array length is 2. Doing this provides us with a test that asserts our initial state is correct. This provides us with a more robust test that checks both the initial state and final state. If something were to go wrong, we'd have a better clue as to where the problem is.
 4. Call the function `deleteTodo` and pass in an index of 0 (we're going to test deleting the first item).
 5. Make an assertion that the todos array length is 1.
 6. Make an assertion that the todo at index 0 has the text we initially added for the second todo.
@@ -494,7 +494,7 @@ We're going to start with a test that checks the default states of our component
     });
     ```
 
-As expected, we have failing tests (we don't get things for free afterall). There are a few things we'll have to do to make this test pass.
+As expected, we have failing tests (we don't get things for free after all). There are a few things we'll have to do to make this test pass.
 
 ### Defining The Todo-Item Component
 
@@ -539,7 +539,7 @@ While we're here, let's go ahead and add some HTMl elements to our component so 
 
     1. We told Angular to bind the class `completed` to the `completed` property.
     2. We added an input that has a type of `checkbox` and a `(ngModel)` binding to the `completed` property.
-    3. We added a `<p>` element that has a `contenteditable` and `spellcheck` attribute, and also uses Angular's interpolation (double squigly brackets) to bind the `text` value to the `<p>` element. This will allow us to both see the text of the todo, and change it's value if we need to.
+    3. We added a `<p>` element that has a `contenteditable` and `spellcheck` attribute, and also uses Angular's interpolation (double squiggly brackets) to bind the `text` value to the `<p>` element. This will allow us to both see the text of the todo, and change it's value if we need to.
 
 Now that our Todo Item component is ready, let's hook it up in our App Component.
 
@@ -560,7 +560,7 @@ Now that our Todo Item component is ready, let's hook it up in our App Component
 
 Remember all that logic we created earlier to test deleting todos? Well, now it's time to make that magic happen!
 
-The logic to delete Todos exists in the app component where we've stored our array of todos. So we need to make each todo component able to tell the app component to delete itself. To do this we're going to use an event emitter. But we're also going to take this oppertunity to explore the concepts of Spys.
+The logic to delete Todos exists in the app component where we've stored our array of todos. So we need to make each todo component able to tell the app component to delete itself. To do this we're going to use an event emitter. But we're also going to take this opportunity to explore the concepts of Spys.
 
 > **Spys**: In short, a spy allows us to inspect how properties or functions are used and called. You can use a spy to test that a function is called, and that it is called with the correct arguments.
 
@@ -592,7 +592,7 @@ it("should trigger delete when clicked", () => {
 
 This should be second nature by now, let's go and make our code fulfill our tests!
 
-We're going to use the EventEmitter as previously mentioned. If you want to know more, check out Angular's documention on EventEmitter. For now, simply imagine it as a function that we can call to trigger an event which the parent component can listen for.
+We're going to use the EventEmitter as previously mentioned. If you want to know more, check out Angular's documentation on EventEmitter. For now, simply imagine it as a function that we can call to trigger an event which the parent component can listen for.
 
 1. Open the `src/app/todo-item/todo-item.component.ts` file.
 2. Import the `EventEmitter` and `Output` from the `@angular/core` module.
